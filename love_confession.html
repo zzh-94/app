@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>爱的告白</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            overflow: hidden;
+            touch-action: none;
+        }
+        
+        .popup {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 80%;
+            max-width: 300px;
+            position: fixed;
+            z-index: 9999;
+        }
+        
+        .buttons {
+            margin-top: 20px;
+        }
+        
+        #acceptBtn {
+            background: #ff4b6a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+        
+        #rejectBtn {
+            background: #cccccc;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup" id="lovePopup">
+        <h2>亲爱的❤️</h2>
+        <p>我喜欢你很久了</p>
+        <p>愿意做我的女朋友吗？</p>
+        <div class="buttons">
+            <button id="acceptBtn">同意</button>
+            <button id="rejectBtn">考虑考虑</button>
+        </div>
+    </div>
+
+    <script>
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function () {
+            history.pushState(null, null, document.URL);
+        });
+
+        const rejectBtn = document.getElementById('rejectBtn');
+        const acceptBtn = document.getElementById('acceptBtn');
+        
+        function moveButton(e) {
+            const maxX = window.innerWidth - rejectBtn.offsetWidth;
+            const maxY = window.innerHeight - rejectBtn.offsetHeight;
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+            rejectBtn.style.position = 'fixed';
+            rejectBtn.style.left = `${x}px`;
+            rejectBtn.style.top = `${y}px`;
+        }
+
+        rejectBtn.addEventListener('mouseover', moveButton);
+        rejectBtn.addEventListener('touchstart', moveButton);
+        
+        acceptBtn.addEventListener('click', function() {
+            alert('太好了！我们在一起吧！❤️');
+            // window.location.href = "next_page.html";
+        });
+        
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F5' || e.key === 'Escape' || 
+                (e.key === 'w' && e.ctrlKey) || 
+                (e.key === 'r' && e.ctrlKey) ||
+                (e.key === 'F4' && e.altKey)) {
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('touchmove', function(e) {
+            if (e.touches.length > 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+        
+        window.onbeforeunload = function() {
+            return "别走嘛~";
+        };
+    </script>
+</body>
+</html> 
